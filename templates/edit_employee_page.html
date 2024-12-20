@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee List</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'edit_employee.css' %}">
+    <link rel="shortcut icon" href="{% static 'logo.ico' %}">
+    <style>
+        /* General Styling */
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            background-color: #a9c0da;
+            color: #333;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #76517f;
+            padding: 0.5em 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .navbar ul li {
+            margin: 0 1em;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .navbar ul li a:hover {
+            background-color: #76517f;
+        }
+
+        /* Dashboard Bar */
+        .dashboard-bar {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            margin-bottom: 2em;
+        }
+
+        /* Edit Employee Form */
+        .edit-employee {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .edit-employee h3 {
+            text-align: center;
+            margin-bottom: 1.5em;
+            color: #76517f;
+        }
+        .edit-employee label {
+            display: block;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+        .edit-employee input,
+        .edit-employee select {
+            width: 100%;
+            padding: 0.5em;
+            margin-bottom: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .edit-employee input[type="radio"],
+        .edit-employee input[type="checkbox"] {
+            width: auto;
+            margin-right: 0.5em;
+        }
+        .edit-employee .button {
+            display: block;
+            width: 100%;
+            padding: 0.75em;
+            background-color: #76517f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .edit-employee .button:hover {
+            background-color: #76517f;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <ul>
+            <li><a href="{% url 'Dashboard Page' %}" class="button">Home</a></li>
+            <li><a href="{% url 'Employee List Page' %}" class="button">Employee List</a></li>
+            <li><a href="#" class="button">{{ username }}</a></li>
+            <li><a href="{% url 'Logout Page' %}" class="button">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="dashboard-bar">
+        <h2>Employee List</h2>
+    </div>
+
+    <div class="edit-employee">
+        <h3>Edit Employee</h3>
+        <form action="{% url 'Edit Employee Page' employee_id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Leave empty if unchanged">
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Leave empty if unchanged">
+            </div>
+            <div>
+                <label for="mobile">Mobile No.:</label>
+                <input type="text" id="mobile" name="mobile" placeholder="Leave empty if unchanged">
+            </div>
+            <div>
+                <label for="designation">Designation:</label>
+                <select id="designation" name="designation">
+                    <option value="">Leave empty if unchanged</option>
+                    <option value="Manager">Manager</option>
+                    <option value="HR">HR</option>
+                    <option value="Sales">Sales</option>
+                </select>
+            </div>
+            <div>
+                <label>Gender:</label>
+                <label><input type="radio" name="gender" value="Male"> Male</label>
+                <label><input type="radio" name="gender" value="Female"> Female</label>
+                <label><input type="radio" name="gender" value="Other"> Other</label>
+            </div>
+            <div>
+                <label>Course:</label>
+                <label><input type="checkbox" name="course" value="MBA">MBA</label>
+                <label><input type="checkbox" name="course" value="BCA">BCA</label>
+                <label><input type="checkbox" name="course" value="BSC">BSC</label>
+            </div>
+            <div>
+                <label for="image">Image Upload:</label>
+                <input type="file" id="image" name="image" accept=".png, .jpg, .jpeg">
+            </div>
+            <div>
+                <button type="submit" class="button">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
